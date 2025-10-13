@@ -1,1 +1,620 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Портфолио Разработчика | C++/Python/C#</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+        }
 
+        :root {
+            --primary: #6C63FF;
+            --secondary: #4A44C6;
+            --accent: #FF6584;
+            --dark: #0A0A0A;
+            --darker: #050505;
+            --light: #F7F7FF;
+            --code-green: #4EC9B0;
+            --code-blue: #569CD6;
+            --code-purple: #C586C0;
+            --code-yellow: #DCDCAA;
+            --code-gray: #6A9955;
+            --code-orange: #CE9178;
+            --code-light-blue: #9CDCFE;
+            --gradient: linear-gradient(135deg, var(--primary), var(--secondary));
+            --glow: 0 0 20px rgba(108, 99, 255, 0.7);
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--dark);
+            color: var(--light);
+            line-height: 1.6;
+            overflow: hidden;
+            min-height: 100vh;
+            position: relative;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            padding: 0 20px;
+            z-index: 2;
+        }
+
+        .code-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--darker);
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .code-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            padding: 40px;
+            font-size: 16px;
+            line-height: 1.5;
+            opacity: 0.25;
+            filter: blur(0.3px);
+            text-shadow: 0 0 10px rgba(78, 201, 176, 0.3);
+        }
+
+        .code-line {
+            margin-bottom: 5px;
+            white-space: nowrap;
+            opacity: 0;
+            animation: typeLine 0.1s forwards;
+            font-weight: 500;
+        }
+
+        @keyframes typeLine {
+            to {
+                opacity: 1;
+            }
+        }
+
+        .preprocessor {
+            color: var(--code-blue);
+            text-shadow: 0 0 8px rgba(86, 156, 214, 0.4);
+        }
+
+        .keyword {
+            color: var(--code-light-blue);
+            text-shadow: 0 0 8px rgba(156, 220, 254, 0.4);
+        }
+
+        .type {
+            color: var(--code-green);
+            text-shadow: 0 0 8px rgba(78, 201, 176, 0.4);
+        }
+
+        .function {
+            color: var(--code-yellow);
+            text-shadow: 0 0 8px rgba(220, 220, 170, 0.4);
+        }
+
+        .string {
+            color: var(--code-orange);
+            text-shadow: 0 0 8px rgba(206, 145, 120, 0.4);
+        }
+
+        .number {
+            color: #B5CEA8;
+            text-shadow: 0 0 8px rgba(181, 206, 168, 0.4);
+        }
+
+        .comment {
+            color: var(--code-gray);
+            text-shadow: 0 0 8px rgba(106, 153, 85, 0.4);
+            font-style: italic;
+        }
+
+        .operator {
+            color: var(--code-purple);
+            text-shadow: 0 0 8px rgba(197, 134, 192, 0.4);
+        }
+
+        .blur-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 30%, rgba(108, 99, 255, 0.25) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(255, 101, 132, 0.25) 0%, transparent 50%);
+            filter: blur(80px);
+            z-index: -1;
+            opacity: 0.8;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            z-index: 2;
+            background: rgba(10, 10, 10, 0.85);
+            backdrop-filter: blur(25px);
+            padding: 60px 50px;
+            border-radius: 25px;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            box-shadow: 
+                0 25px 50px rgba(0, 0, 0, 0.5),
+                0 0 0 1px rgba(108, 99, 255, 0.1);
+        }
+
+        .developer-name {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            animation: fadeInUp 1s ease;
+            text-shadow: 0 5px 25px rgba(108, 99, 255, 0.4);
+            font-weight: 800;
+            letter-spacing: -1px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .developer-title {
+            font-size: 1.8rem;
+            margin-bottom: 40px;
+            animation: fadeInUp 1s ease 0.2s both;
+            color: rgba(255, 255, 255, 0.9);
+            font-weight: 300;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .tech-stack {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 50px;
+            animation: fadeInUp 1s ease 0.4s both;
+        }
+
+        .tech-item {
+            background: rgba(255, 255, 255, 0.08);
+            padding: 12px 24px;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 600;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            transition: all 0.3s ease;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: white;
+        }
+
+        .tech-item:hover {
+            transform: translateY(-5px);
+            background: rgba(108, 99, 255, 0.3);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+            border-color: rgba(108, 99, 255, 0.5);
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            animation: fadeInUp 1s ease 0.6s both;
+        }
+
+        .social-link {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-decoration: none;
+            color: var(--light);
+            transition: all 0.3s ease;
+            padding: 25px;
+            border-radius: 20px;
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            width: 180px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .social-link::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--gradient);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: -1;
+        }
+
+        .social-link:hover {
+            transform: translateY(-10px) scale(1.05);
+            box-shadow: var(--glow);
+            color: white;
+            border-color: rgba(108, 99, 255, 0.5);
+        }
+
+        .social-link:hover::before {
+            opacity: 0.3;
+        }
+
+        .social-icon {
+            font-size: 2.8rem;
+            margin-bottom: 15px;
+            transition: all 0.3s ease;
+            filter: drop-shadow(0 5px 15px rgba(0, 0, 0, 0.3));
+        }
+
+        .social-link:hover .social-icon {
+            transform: scale(1.2);
+            filter: drop-shadow(0 8px 20px rgba(108, 99, 255, 0.4));
+        }
+
+        .social-name {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 5px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .social-desc {
+            font-size: 0.9rem;
+            opacity: 0.9;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(108, 99, 255, 0.7);
+            }
+            70% {
+                box-shadow: 0 0 0 20px rgba(108, 99, 255, 0);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(108, 99, 255, 0);
+            }
+        }
+
+        .glow-effect {
+            position: relative;
+        }
+
+        .glow-effect::after {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: var(--gradient);
+            border-radius: 22px;
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .social-link:hover.glow-effect::after {
+            opacity: 1;
+            animation: pulse 2s infinite;
+        }
+
+        @media (max-width: 768px) {
+            .developer-name {
+                font-size: 2.8rem;
+            }
+            
+            .developer-title {
+                font-size: 1.3rem;
+            }
+            
+            .social-links {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .social-link {
+                width: 100%;
+                max-width: 300px;
+            }
+            
+            .hero-content {
+                padding: 40px 25px;
+            }
+            
+            .code-container {
+                padding: 20px;
+                font-size: 14px;
+                opacity: 0.3;
+            }
+        }
+
+        .typing-cursor {
+            display: inline-block;
+            width: 8px;
+            height: 1.2em;
+            background: var(--code-green);
+            margin-left: 2px;
+            animation: blink 1s infinite;
+            vertical-align: middle;
+            box-shadow: 0 0 10px var(--code-green);
+        }
+
+        @keyframes blink {
+            0%, 100% {
+                opacity: 1;
+            }
+            50% {
+                opacity: 0;
+            }
+        }
+
+        .code-parallax {
+            transform: translateY(0);
+            transition: transform 0.1s ease-out;
+        }
+
+        @keyframes highlightLine {
+            0% {
+                background: transparent;
+            }
+            50% {
+                background: rgba(78, 201, 176, 0.1);
+            }
+            100% {
+                background: transparent;
+            }
+        }
+
+        .highlight {
+            animation: highlightLine 2s ease;
+        }
+    </style>
+</head>
+<body>
+    <div class="code-background">
+        <div class="code-container" id="codeContainer">
+        </div>
+    </div>
+    
+    <div class="blur-overlay"></div>
+    
+    <section class="hero">
+        <div class="container hero-content">
+            <h1 class="developer-name">Разработчик ПО</h1>
+            <p class="developer-title">C++ • Python • C# • Full-Stack</p>
+            
+            <div class="tech-stack">
+                <div class="tech-item">C++</div>
+                <div class="tech-item">Python</div>
+                <div class="tech-item">C#</div>
+                <div class="tech-item">ASP.NET</div>
+                <div class="tech-item">HTML/CSS</div>
+                <div class="tech-item">JavaScript</div>
+                <div class="tech-item">OpenGL</div>
+            </div>
+            
+            <div class="social-links">
+                <a href="https://github.com/yourusername" class="social-link glow-effect" target="_blank">
+                    <i class="fab fa-github social-icon"></i>
+                    <span class="social-name">GitHub</span>
+                    <span class="social-desc">Мои проекты</span>
+                </a>
+                
+                <a href="https://t.me/your_telegram" class="social-link glow-effect" target="_blank">
+                    <i class="fab fa-telegram social-icon"></i>
+                    <span class="social-name">Telegram</span>
+                    <span class="social-desc">Написать мне</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        const cppCode = [
+            {text: "#include <iostream>", class: "preprocessor"},
+            {text: "#include <vector>", class: "preprocessor"},
+            {text: "#include <memory>", class: "preprocessor"},
+            {text: "#include <algorithm>", class: "preprocessor"},
+            {text: "", class: ""},
+            {text: "using namespace std;", class: "keyword"},
+            {text: "", class: ""},
+            {text: "class RenderEngine {", class: "keyword"},
+            {text: "private:", class: "keyword", indent: 1},
+            {text: "vector<unique_ptr<Shader>> shaders;", class: "type", indent: 2},
+            {text: "bool initialized = false;", class: "type", indent: 2},
+            {text: "", class: ""},
+            {text: "public:", class: "keyword", indent: 1},
+            {text: "RenderEngine() {", class: "function", indent: 2},
+            {text: "cout << \"Инициализация движка...\" << endl;", class: "", indent: 3},
+            {text: "}", class: "", indent: 2},
+            {text: "", class: ""},
+            {text: "void initialize() {", class: "type", indent: 2},
+            {text: "loadShaders();", class: "", indent: 3},
+            {text: "initialized = true;", class: "", indent: 3},
+            {text: "cout << \"Движок готов!\" << endl;", class: "", indent: 3},
+            {text: "}", class: "", indent: 2},
+            {text: "", class: ""},
+            {text: "void renderFrame() {", class: "type", indent: 2},
+            {text: "if (!initialized) return;", class: "keyword", indent: 3},
+            {text: "clearScreen();", class: "", indent: 3},
+            {text: "for (auto& shader : shaders) {", class: "keyword", indent: 3},
+            {text: "shader->apply();", class: "", indent: 4},
+            {text: "}", class: "", indent: 3},
+            {text: "swapBuffers();", class: "", indent: 3},
+            {text: "}", class: "", indent: 2},
+            {text: "};", class: ""},
+            {text: "", class: ""},
+            {text: "template<typename T>", class: "keyword"},
+            {text: "class SmartPointer {", class: "keyword"},
+            {text: "T* ptr;", class: "type", indent: 1},
+            {text: "public:", class: "keyword", indent: 1},
+            {text: "explicit SmartPointer(T* p = nullptr) : ptr(p) {}", class: "function", indent: 2},
+            {text: "~SmartPointer() {", class: "function", indent: 2},
+            {text: "delete ptr;", class: "", indent: 3},
+            {text: "}", class: "", indent: 2},
+            {text: "", class: ""},
+            {text: "T& operator*() const { return *ptr; }", class: "function", indent: 2},
+            {text: "T* operator->() const { return ptr; }", class: "function", indent: 2},
+            {text: "};", class: ""},
+            {text: "", class: ""},
+            {text: "#include <thread>", class: "preprocessor"},
+            {text: "#include <future>", class: "preprocessor"},
+            {text: "#include <mutex>", class: "preprocessor"},
+            {text: "", class: ""},
+            {text: "mutex renderMutex;", class: "type"},
+            {text: "", class: ""},
+            {text: "void asyncRenderTask() {", class: "type"},
+            {text: "lock_guard<mutex> lock(renderMutex);", class: "", indent: 1},
+            {text: "cout << \"Асинхронный рендеринг...\" << endl;", class: "", indent: 1},
+            {text: "this_thread::sleep_for(chrono::milliseconds(16));", class: "", indent: 1},
+            {text: "}", class: ""},
+            {text: "", class: ""},
+            {text: "int main() {", class: "type"},
+            {text: "RenderEngine engine;", class: "", indent: 1},
+            {text: "engine.initialize();", class: "", indent: 1},
+            {text: "", class: ""},
+            {text: "vector<future<void>> tasks;", class: "type", indent: 1},
+            {text: "for (int i = 0; i < 60; ++i) {", class: "keyword", indent: 1},
+            {text: "tasks.push_back(async(launch::async, asyncRenderTask));", class: "", indent: 2},
+            {text: "}", class: "", indent: 1},
+            {text: "", class: ""},
+            {text: "for (auto& task : tasks) {", class: "keyword", indent: 1},
+            {text: "task.get();", class: "", indent: 2},
+            {text: "}", class: "", indent: 1},
+            {text: "", class: ""},
+            {text: "cout << \"Рендеринг завершен!\" << endl;", class: "", indent: 1},
+            {text: "return 0;", class: "keyword", indent: 1},
+            {text: "}", class: ""}
+        ];
+
+        function typeCode() {
+            const container = document.getElementById('codeContainer');
+            let lineIndex = 0;
+            
+            function typeNextLine() {
+                if (lineIndex < cppCode.length) {
+                    const line = cppCode[lineIndex];
+                    const codeLine = document.createElement('div');
+                    codeLine.className = `code-line ${line.class}`;
+                    
+                    if (line.indent) {
+                        codeLine.style.marginLeft = `${line.indent * 25}px`;
+                    }
+                    
+                    codeLine.textContent = line.text;
+                    container.appendChild(codeLine);
+                    
+                    codeLine.style.animationDelay = `${lineIndex * 0.03}s`;
+                    
+                    if (Math.random() > 0.7) {
+                        setTimeout(() => {
+                            codeLine.classList.add('highlight');
+                            setTimeout(() => {
+                                codeLine.classList.remove('highlight');
+                            }, 2000);
+                        }, lineIndex * 30 + 1000);
+                    }
+                    
+                    lineIndex++;
+                    setTimeout(typeNextLine, 30);
+                } else {
+                    setTimeout(() => {
+                        container.innerHTML = '';
+                        lineIndex = 0;
+                        typeNextLine();
+                    }, 8000);
+                }
+            }
+            
+            typeNextLine();
+        }
+
+        function initCodeParallax() {
+            document.addEventListener('mousemove', (e) => {
+                const x = e.clientX / window.innerWidth;
+                const y = e.clientY / window.innerHeight;
+                
+                const codeContainer = document.querySelector('.code-container');
+                const moveX = (x - 0.5) * 30;
+                const moveY = (y - 0.5) * 30;
+                
+                codeContainer.style.transform = `translate(${moveX}px, ${moveY}px)`;
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            typeCode();
+            initCodeParallax();
+            
+            document.querySelectorAll('.social-link').forEach(link => {
+                link.addEventListener('mouseenter', () => {
+                    document.querySelector('.blur-overlay').style.opacity = '0.9';
+                });
+                
+                link.addEventListener('mouseleave', () => {
+                    document.querySelector('.blur-overlay').style.opacity = '0.8';
+                });
+            });
+        });
+
+        function randomCodeFlicker() {
+            const lines = document.querySelectorAll('.code-line');
+            if (lines.length > 0) {
+                const randomLine = lines[Math.floor(Math.random() * lines.length)];
+                randomLine.style.opacity = '0.8';
+                randomLine.style.textShadow = '0 0 15px currentColor';
+                setTimeout(() => {
+                    randomLine.style.opacity = '1';
+                    randomLine.style.textShadow = '0 0 8px currentColor';
+                }, 200);
+            }
+            setTimeout(randomCodeFlicker, Math.random() * 1500 + 500);
+        }
+
+        setTimeout(randomCodeFlicker, 2000);
+    </script>
+</body>
+</html>
