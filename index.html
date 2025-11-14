@@ -10,422 +10,432 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
-        }
-
-        :root {
-            --primary: #6C63FF;
-            --secondary: #4A44C6;
-            --accent: #FF6584;
-            --dark: #0A0A0A;
-            --darker: #050505;
-            --light: #F7F7FF;
-            --code-green: #4EC9B0;
-            --code-blue: #569CD6;
-            --code-purple: #C586C0;
-            --code-yellow: #DCDCAA;
-            --code-gray: #6A9955;
-            --code-orange: #CE9178;
-            --code-light-blue: #9CDCFE;
-            --gradient: linear-gradient(135deg, var(--primary), var(--secondary));
-            --glow: 0 0 20px rgba(108, 99, 255, 0.7);
-        }
-
-        html {
-            scroll-behavior: smooth;
         }
 
         body {
-            background-color: var(--dark);
-            color: var(--light);
-            line-height: 1.6;
-            overflow: hidden;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', sans-serif;
+            background: #000000;
+            color: #ffffff;
             min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
             position: relative;
         }
 
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
+        /* === Анимированный фон === */
+        .background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            overflow: hidden;
         }
 
-        .hero {
-            min-height: 100vh;
+        .stars {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+        }
+
+        .star {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: white;
+            border-radius: 50%;
+            animation: twinkle 3s infinite;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.2; }
+            50% { opacity: 1; }
+        }
+
+        .gradient-orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(100px);
+            opacity: 0.4;
+            animation: float 25s infinite;
+        }
+
+        .orb-1 {
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, #6366f1, #8b5cf6);
+            top: -300px;
+            left: -300px;
+            animation-delay: 0s;
+        }
+
+        .orb-2 {
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, #d946ef, #8b5cf6);
+            bottom: -250px;
+            right: -250px;
+            animation-delay: 8s;
+        }
+
+        .orb-3 {
+            width: 450px;
+            height: 450px;
+            background: radial-gradient(circle, #3b82f6, #6366f1);
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            animation-delay: 16s;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            25% { transform: translate(100px, -100px) scale(1.1); }
+            50% { transform: translate(-50px, 50px) scale(0.9); }
+            75% { transform: translate(50px, 100px) scale(1.05); }
+        }
+
+        .particles {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+        }
+
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: linear-gradient(135deg, #6366f1, #8b5cf6);
+            border-radius: 50%;
+            opacity: 0.3;
+            animation: particleFloat 20s infinite;
+        }
+
+        @keyframes particleFloat {
+            0% { transform: translateY(100vh) scale(0); opacity: 0; }
+            10% { opacity: 0.3; }
+            90% { opacity: 0.3; }
+            100% { transform: translateY(-100vh) scale(1); opacity: 0; }
+        }
+
+        /* === Основная карточка === */
+        .portfolio-container {
+            position: relative;
+            z-index: 1;
+            width: 100%;
+            max-width: 520px;
+            padding: 20px;
+        }
+
+        .portfolio-card {
+            background: linear-gradient(145deg, rgba(20, 20, 20, 0.9), rgba(10, 10, 10, 0.8));
+            backdrop-filter: blur(30px) saturate(150%);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 28px;
+            padding: 50px 44px;
+            box-shadow: 
+                0 30px 80px rgba(0, 0, 0, 0.6),
+                0 0 0 1px rgba(255, 255, 255, 0.05) inset,
+                0 0 100px rgba(99, 102, 241, 0.2);
+            animation: cardEntry 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .portfolio-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(99, 102, 241, 0.1), transparent);
+            transform: rotate(45deg);
+            animation: shimmer 6s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+            100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+        }
+
+        @keyframes cardEntry {
+            0% { opacity: 0; transform: translateY(50px) scale(0.9); filter: blur(10px); }
+            100% { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); }
+        }
+
+        /* === Логотип === */
+        .logo-container {
             display: flex;
             flex-direction: column;
-            justify-content: center;
             align-items: center;
-            text-align: center;
+            margin-bottom: 44px;
             position: relative;
-            overflow: hidden;
-            padding: 0 20px;
-            z-index: 2;
+            z-index: 1;
         }
 
-        .code-background {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: var(--darker);
-            z-index: -1;
-            overflow: hidden;
-        }
-
-        .code-container {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            padding: 40px;
-            font-size: 16px;
-            line-height: 1.5;
-            opacity: 0.25;
-            filter: blur(0.3px);
-            text-shadow: 0 0 10px rgba(78, 201, 176, 0.3);
-        }
-
-        .code-line {
-            margin-bottom: 5px;
-            white-space: nowrap;
-            opacity: 0;
-            animation: typeLine 0.1s forwards;
-            font-weight: 500;
-        }
-
-        @keyframes typeLine {
-            to {
-                opacity: 1;
-            }
-        }
-
-        .preprocessor {
-            color: var(--code-blue);
-            text-shadow: 0 0 8px rgba(86, 156, 214, 0.4);
-        }
-
-        .keyword {
-            color: var(--code-light-blue);
-            text-shadow: 0 0 8px rgba(156, 220, 254, 0.4);
-        }
-
-        .type {
-            color: var(--code-green);
-            text-shadow: 0 0 8px rgba(78, 201, 176, 0.4);
-        }
-
-        .function {
-            color: var(--code-yellow);
-            text-shadow: 0 0 8px rgba(220, 220, 170, 0.4);
-        }
-
-        .string {
-            color: var(--code-orange);
-            text-shadow: 0 0 8px rgba(206, 145, 120, 0.4);
-        }
-
-        .number {
-            color: #B5CEA8;
-            text-shadow: 0 0 8px rgba(181, 206, 168, 0.4);
-        }
-
-        .comment {
-            color: var(--code-gray);
-            text-shadow: 0 0 8px rgba(106, 153, 85, 0.4);
-            font-style: italic;
-        }
-
-        .operator {
-            color: var(--code-purple);
-            text-shadow: 0 0 8px rgba(197, 134, 192, 0.4);
-        }
-
-        .blur-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: 
-                radial-gradient(circle at 20% 30%, rgba(108, 99, 255, 0.25) 0%, transparent 50%),
-                radial-gradient(circle at 80% 70%, rgba(255, 101, 132, 0.25) 0%, transparent 50%);
-            filter: blur(80px);
-            z-index: -1;
-            opacity: 0.8;
-        }
-
-        .hero-content {
-            max-width: 800px;
-            z-index: 2;
-            background: rgba(10, 10, 10, 0.85);
-            backdrop-filter: blur(25px);
-            padding: 60px 50px;
-            border-radius: 25px;
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            box-shadow: 
-                0 25px 50px rgba(0, 0, 0, 0.5),
-                0 0 0 1px rgba(108, 99, 255, 0.1);
-        }
-
-        .developer-name {
-            font-size: 4rem;
+        .logo-wrapper {
+            position: relative;
             margin-bottom: 20px;
-            background: var(--gradient);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            animation: fadeInUp 1s ease;
-            text-shadow: 0 5px 25px rgba(108, 99, 255, 0.4);
+        }
+
+        .logo-glow {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 120px;
+            height: 120px;
+            background: radial-gradient(circle, rgba(99, 102, 241, 0.6), transparent);
+            filter: blur(30px);
+            animation: glowPulse 3s ease-in-out infinite;
+        }
+
+        @keyframes glowPulse {
+            0%, 100% { opacity: 0.5; transform: translate(-50%, -50%) scale(1); }
+            50% { opacity: 1; transform: translate(-50%, -50%) scale(1.2); }
+        }
+
+        .logo-icon {
+            width: 72px;
+            height: 72px;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .logo-icon::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #d946ef 100%);
+            border-radius: 18px;
+            animation: logoRotate 10s linear infinite;
+            box-shadow: 0 0 40px rgba(139, 92, 246, 0.5), 0 0 80px rgba(99, 102, 241, 0.3);
+        }
+
+        @keyframes logoRotate {
+            0% { transform: rotate(0deg); border-radius: 18px; }
+            25% { border-radius: 50%; }
+            50% { transform: rotate(180deg); border-radius: 18px; }
+            75% { border-radius: 50%; }
+            100% { transform: rotate(360deg); border-radius: 18px; }
+        }
+
+        .logo-icon::after {
+            content: 'P';
+            position: relative;
+            z-index: 1;
+            font-size: 40px;
             font-weight: 800;
-            letter-spacing: -1px;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #ffffff;
+            text-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
         }
 
-        .developer-title {
-            font-size: 1.8rem;
-            margin-bottom: 40px;
-            animation: fadeInUp 1s ease 0.2s both;
-            color: rgba(255, 255, 255, 0.9);
-            font-weight: 300;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        .logo-text .main {
+            font-size: 36px;
+            font-weight: 800;
+            letter-spacing: 6px;
+            background: linear-gradient(135deg, #ffffff 0%, #a0a0a0 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 8px;
+            text-shadow: 0 0 30px rgba(255, 255, 255, 0.3);
+            animation: textShine 3s ease-in-out infinite;
         }
 
+        @keyframes textShine {
+            0%, 100% { filter: brightness(1); }
+            50% { filter: brightness(1.3); }
+        }
+
+        .logo-text .sub {
+            font-size: 14px;
+            font-weight: 600;
+            letter-spacing: 3px;
+            color: #888;
+            text-transform: uppercase;
+        }
+
+        /* === Заголовок === */
+        .hero-header {
+            text-align: center;
+            margin-bottom: 36px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-header h1 {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 10px;
+            background: linear-gradient(135deg, #ffffff, #d0d0d0);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-header p {
+            font-size: 15px;
+            color: #888;
+            font-weight: 400;
+            line-height: 1.5;
+        }
+
+        /* === Технологии === */
         .tech-stack {
             display: flex;
-            justify-content: center;
             flex-wrap: wrap;
-            gap: 15px;
-            margin-bottom: 50px;
-            animation: fadeInUp 1s ease 0.4s both;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 32px;
+            position: relative;
+            z-index: 1;
         }
 
         .tech-item {
-            background: rgba(255, 255, 255, 0.08);
-            padding: 12px 24px;
-            border-radius: 50px;
-            font-size: 1rem;
+            background: linear-gradient(145deg, rgba(25, 25, 25, 0.8), rgba(15, 15, 15, 0.6));
+            border: 1.5px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 10px 18px;
+            font-size: 14px;
             font-weight: 600;
+            color: #fff;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            transition: all 0.3s ease;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            color: white;
         }
 
         .tech-item:hover {
-            transform: translateY(-5px);
-            background: rgba(108, 99, 255, 0.3);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
-            border-color: rgba(108, 99, 255, 0.5);
+            background: linear-gradient(135deg, #6366f1, #8b5cf6);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 24px rgba(99, 102, 241, 0.3);
+            border-color: transparent;
         }
 
+        /* === Социальные ссылки === */
         .social-links {
             display: flex;
-            justify-content: center;
-            gap: 30px;
-            animation: fadeInUp 1s ease 0.6s both;
+            flex-direction: column;
+            gap: 16px;
+            position: relative;
+            z-index: 1;
         }
 
-        .social-link {
+        .social-btn {
+            background: linear-gradient(145deg, rgba(25, 25, 25, 0.8), rgba(15, 15, 15, 0.6));
+            border: 1.5px solid rgba(255, 255, 255, 0.1);
+            border-radius: 14px;
+            padding: 16px;
             display: flex;
-            flex-direction: column;
             align-items: center;
-            text-decoration: none;
-            color: var(--light);
-            transition: all 0.3s ease;
-            padding: 25px;
-            border-radius: 20px;
-            background: rgba(255, 255, 255, 0.08);
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            width: 180px;
+            gap: 14px;
+            color: #fff;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             position: relative;
             overflow: hidden;
         }
 
-        .social-link::before {
+        .social-btn::before {
             content: '';
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: var(--gradient);
-            opacity: 0;
-            transition: opacity 0.3s ease;
-            z-index: -1;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 0;
+            height: 0;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            transition: width 0.6s ease, height 0.6s ease;
         }
 
-        .social-link:hover {
-            transform: translateY(-10px) scale(1.05);
-            box-shadow: var(--glow);
-            color: white;
-            border-color: rgba(108, 99, 255, 0.5);
+        .social-btn:hover::before {
+            width: 300px;
+            height: 300px;
         }
 
-        .social-link:hover::before {
-            opacity: 0.3;
+        .social-btn:hover {
+            background: linear-gradient(145deg, rgba(30, 30, 30, 0.9), rgba(20, 20, 20, 0.7));
+            border-color: rgba(255, 255, 255, 0.2);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
         }
 
-        .social-icon {
-            font-size: 2.8rem;
-            margin-bottom: 15px;
-            transition: all 0.3s ease;
-            filter: drop-shadow(0 5px 15px rgba(0, 0, 0, 0.3));
+        .social-btn i {
+            font-size: 22px;
+            width: 28px;
+            text-align: center;
         }
 
-        .social-link:hover .social-icon {
-            transform: scale(1.2);
-            filter: drop-shadow(0 8px 20px rgba(108, 99, 255, 0.4));
+        .social-btn span {
+            flex: 1;
         }
 
-        .social-name {
-            font-size: 1.3rem;
-            font-weight: 700;
-            margin-bottom: 5px;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        .social-btn .desc {
+            font-size: 13px;
+            color: #aaa;
+            font-weight: 400;
         }
 
-        .social-desc {
-            font-size: 0.9rem;
-            opacity: 0.9;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        /* === Анимации появления === */
+        .tech-stack, .social-links {
+            animation: fadeInUp 0.6s ease;
+            animation-fill-mode: both;
         }
+
+        .tech-stack { animation-delay: 0.2s; }
+        .social-links { animation-delay: 0.4s; }
 
         @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
-        @keyframes pulse {
-            0% {
-                box-shadow: 0 0 0 0 rgba(108, 99, 255, 0.7);
+        /* === Адаптивность === */
+        @media (max-width: 480px) {
+            .portfolio-card {
+                padding: 40px 32px;
             }
-            70% {
-                box-shadow: 0 0 0 20px rgba(108, 99, 255, 0);
-            }
-            100% {
-                box-shadow: 0 0 0 0 rgba(108, 99, 255, 0);
-            }
-        }
-
-        .glow-effect {
-            position: relative;
-        }
-
-        .glow-effect::after {
-            content: '';
-            position: absolute;
-            top: -2px;
-            left: -2px;
-            right: -2px;
-            bottom: -2px;
-            background: var(--gradient);
-            border-radius: 22px;
-            z-index: -1;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-
-        .social-link:hover.glow-effect::after {
-            opacity: 1;
-            animation: pulse 2s infinite;
-        }
-
-        @media (max-width: 768px) {
-            .developer-name {
-                font-size: 2.8rem;
-            }
-            
-            .developer-title {
-                font-size: 1.3rem;
-            }
-            
-            .social-links {
-                flex-direction: column;
-                align-items: center;
-            }
-            
-            .social-link {
-                width: 100%;
-                max-width: 300px;
-            }
-            
-            .hero-content {
-                padding: 40px 25px;
-            }
-            
-            .code-container {
-                padding: 20px;
-                font-size: 14px;
-                opacity: 0.3;
-            }
-        }
-
-        .typing-cursor {
-            display: inline-block;
-            width: 8px;
-            height: 1.2em;
-            background: var(--code-green);
-            margin-left: 2px;
-            animation: blink 1s infinite;
-            vertical-align: middle;
-            box-shadow: 0 0 10px var(--code-green);
-        }
-
-        @keyframes blink {
-            0%, 100% {
-                opacity: 1;
-            }
-            50% {
-                opacity: 0;
-            }
-        }
-
-        .code-parallax {
-            transform: translateY(0);
-            transition: transform 0.1s ease-out;
-        }
-
-        @keyframes highlightLine {
-            0% {
-                background: transparent;
-            }
-            50% {
-                background: rgba(78, 201, 176, 0.1);
-            }
-            100% {
-                background: transparent;
-            }
-        }
-
-        .highlight {
-            animation: highlightLine 2s ease;
+            .logo-text .main { font-size: 32px; }
+            .hero-header h1 { font-size: 26px; }
         }
     </style>
 </head>
 <body>
-    <div class="code-background">
-        <div class="code-container" id="codeContainer">
-        </div>
+    <div class="background">
+        <div class="stars" id="starsContainer"></div>
+        <div class="gradient-orb orb-1"></div>
+        <div class="gradient-orb orb-2"></div>
+        <div class="gradient-orb orb-3"></div>
+        <div class="particles" id="particlesContainer"></div>
     </div>
-    
-    <div class="blur-overlay"></div>
-    
-    <section class="hero">
-        <div class="container hero-content">
-            <h1 class="developer-name">Разработчик ПО</h1>
-            <p class="developer-title">C++ • Python • C# • Full-Stack</p>
-            
+
+    <div class="portfolio-container">
+        <div class="portfolio-card">
+            <div class="logo-container">
+                <div class="logo-wrapper">
+                    <div class="logo-glow"></div>
+                    <div class="logo-icon"></div>
+                </div>
+                <div class="logo-text">
+                    <div class="main">DEV</div>
+                    <div class="sub">Portfolio</div>
+                </div>
+            </div>
+
+            <div class="hero-header">
+                <h1>Разработчик ПО</h1>
+                <p>C++ • Python • C# • Full-Stack</p>
+            </div>
+
             <div class="tech-stack">
                 <div class="tech-item">C++</div>
                 <div class="tech-item">Python</div>
@@ -435,186 +445,58 @@
                 <div class="tech-item">JavaScript</div>
                 <div class="tech-item">OpenGL</div>
             </div>
-            
+
             <div class="social-links">
-                <a href="https://github.com/yourusername" class="social-link glow-effect" target="_blank">
-                    <i class="fab fa-github social-icon"></i>
-                    <span class="social-name">GitHub</span>
-                    <span class="social-desc">Мои проекты</span>
+                <a href="https://github.com/yourusername" class="social-btn" target="_blank">
+                    <i class="fab fa-github"></i>
+                    <div>
+                        <span>GitHub</span>
+                        <div class="desc">Мои проекты и код</div>
+                    </div>
                 </a>
-                
-                <a href="https://t.me/your_telegram" class="social-link glow-effect" target="_blank">
-                    <i class="fab fa-telegram social-icon"></i>
-                    <span class="social-name">Telegram</span>
-                    <span class="social-desc">Написать мне</span>
+                <a href="https://t.me/your_telegram" class="social-btn" target="_blank">
+                    <i class="fab fa-telegram"></i>
+                    <div>
+                        <span>Telegram</span>
+                        <div class="desc">Написать мне напрямую</div>
+                    </div>
                 </a>
             </div>
         </div>
-    </section>
+    </div>
 
     <script>
-        const cppCode = [
-            {text: "#include <iostream>", class: "preprocessor"},
-            {text: "#include <vector>", class: "preprocessor"},
-            {text: "#include <memory>", class: "preprocessor"},
-            {text: "#include <algorithm>", class: "preprocessor"},
-            {text: "", class: ""},
-            {text: "using namespace std;", class: "keyword"},
-            {text: "", class: ""},
-            {text: "class RenderEngine {", class: "keyword"},
-            {text: "private:", class: "keyword", indent: 1},
-            {text: "vector<unique_ptr<Shader>> shaders;", class: "type", indent: 2},
-            {text: "bool initialized = false;", class: "type", indent: 2},
-            {text: "", class: ""},
-            {text: "public:", class: "keyword", indent: 1},
-            {text: "RenderEngine() {", class: "function", indent: 2},
-            {text: "cout << \"Инициализация движка...\" << endl;", class: "", indent: 3},
-            {text: "}", class: "", indent: 2},
-            {text: "", class: ""},
-            {text: "void initialize() {", class: "type", indent: 2},
-            {text: "loadShaders();", class: "", indent: 3},
-            {text: "initialized = true;", class: "", indent: 3},
-            {text: "cout << \"Движок готов!\" << endl;", class: "", indent: 3},
-            {text: "}", class: "", indent: 2},
-            {text: "", class: ""},
-            {text: "void renderFrame() {", class: "type", indent: 2},
-            {text: "if (!initialized) return;", class: "keyword", indent: 3},
-            {text: "clearScreen();", class: "", indent: 3},
-            {text: "for (auto& shader : shaders) {", class: "keyword", indent: 3},
-            {text: "shader->apply();", class: "", indent: 4},
-            {text: "}", class: "", indent: 3},
-            {text: "swapBuffers();", class: "", indent: 3},
-            {text: "}", class: "", indent: 2},
-            {text: "};", class: ""},
-            {text: "", class: ""},
-            {text: "template<typename T>", class: "keyword"},
-            {text: "class SmartPointer {", class: "keyword"},
-            {text: "T* ptr;", class: "type", indent: 1},
-            {text: "public:", class: "keyword", indent: 1},
-            {text: "explicit SmartPointer(T* p = nullptr) : ptr(p) {}", class: "function", indent: 2},
-            {text: "~SmartPointer() {", class: "function", indent: 2},
-            {text: "delete ptr;", class: "", indent: 3},
-            {text: "}", class: "", indent: 2},
-            {text: "", class: ""},
-            {text: "T& operator*() const { return *ptr; }", class: "function", indent: 2},
-            {text: "T* operator->() const { return ptr; }", class: "function", indent: 2},
-            {text: "};", class: ""},
-            {text: "", class: ""},
-            {text: "#include <thread>", class: "preprocessor"},
-            {text: "#include <future>", class: "preprocessor"},
-            {text: "#include <mutex>", class: "preprocessor"},
-            {text: "", class: ""},
-            {text: "mutex renderMutex;", class: "type"},
-            {text: "", class: ""},
-            {text: "void asyncRenderTask() {", class: "type"},
-            {text: "lock_guard<mutex> lock(renderMutex);", class: "", indent: 1},
-            {text: "cout << \"Асинхронный рендеринг...\" << endl;", class: "", indent: 1},
-            {text: "this_thread::sleep_for(chrono::milliseconds(16));", class: "", indent: 1},
-            {text: "}", class: ""},
-            {text: "", class: ""},
-            {text: "int main() {", class: "type"},
-            {text: "RenderEngine engine;", class: "", indent: 1},
-            {text: "engine.initialize();", class: "", indent: 1},
-            {text: "", class: ""},
-            {text: "vector<future<void>> tasks;", class: "type", indent: 1},
-            {text: "for (int i = 0; i < 60; ++i) {", class: "keyword", indent: 1},
-            {text: "tasks.push_back(async(launch::async, asyncRenderTask));", class: "", indent: 2},
-            {text: "}", class: "", indent: 1},
-            {text: "", class: ""},
-            {text: "for (auto& task : tasks) {", class: "keyword", indent: 1},
-            {text: "task.get();", class: "", indent: 2},
-            {text: "}", class: "", indent: 1},
-            {text: "", class: ""},
-            {text: "cout << \"Рендеринг завершен!\" << endl;", class: "", indent: 1},
-            {text: "return 0;", class: "keyword", indent: 1},
-            {text: "}", class: ""}
-        ];
+        // Создание звёзд
+        const starsContainer = document.getElementById('starsContainer');
+        for (let i = 0; i < 100; i++) {
+            const star = document.createElement('div');
+            star.className = 'star';
+            star.style.left = Math.random() * 100 + '%';
+            star.style.top = Math.random() * 100 + '%';
+            star.style.animationDelay = Math.random() * 3 + 's';
+            starsContainer.appendChild(star);
+        }
 
-        function typeCode() {
-            const container = document.getElementById('codeContainer');
-            let lineIndex = 0;
-            
-            function typeNextLine() {
-                if (lineIndex < cppCode.length) {
-                    const line = cppCode[lineIndex];
-                    const codeLine = document.createElement('div');
-                    codeLine.className = `code-line ${line.class}`;
-                    
-                    if (line.indent) {
-                        codeLine.style.marginLeft = `${line.indent * 25}px`;
-                    }
-                    
-                    codeLine.textContent = line.text;
-                    container.appendChild(codeLine);
-                    
-                    codeLine.style.animationDelay = `${lineIndex * 0.03}s`;
-                    
-                    if (Math.random() > 0.7) {
-                        setTimeout(() => {
-                            codeLine.classList.add('highlight');
-                            setTimeout(() => {
-                                codeLine.classList.remove('highlight');
-                            }, 2000);
-                        }, lineIndex * 30 + 1000);
-                    }
-                    
-                    lineIndex++;
-                    setTimeout(typeNextLine, 30);
-                } else {
-                    setTimeout(() => {
-                        container.innerHTML = '';
-                        lineIndex = 0;
-                        typeNextLine();
-                    }, 8000);
+        // Создание частиц
+        const particlesContainer = document.getElementById('particlesContainer');
+        for (let i = 0; i < 30; i++) {
+            const particle = document.createElement('div');
+            particle.className = 'particle';
+            particle.style.left = Math.random() * 100 + '%';
+            particle.style.animationDelay = Math.random() * 20 + 's';
+            particle.style.animationDuration = (15 + Math.random() * 10) + 's';
+            particlesContainer.appendChild(particle);
+        }
+
+        // Интерактивность кнопок
+        document.querySelectorAll('.social-btn').forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                if (!this.getAttribute('href').startsWith('http')) {
+                    e.preventDefault();
+                    alert('Ссылка: ' + this.querySelector('span').textContent);
                 }
-            }
-            
-            typeNextLine();
-        }
-
-        function initCodeParallax() {
-            document.addEventListener('mousemove', (e) => {
-                const x = e.clientX / window.innerWidth;
-                const y = e.clientY / window.innerHeight;
-                
-                const codeContainer = document.querySelector('.code-container');
-                const moveX = (x - 0.5) * 30;
-                const moveY = (y - 0.5) * 30;
-                
-                codeContainer.style.transform = `translate(${moveX}px, ${moveY}px)`;
-            });
-        }
-
-        document.addEventListener('DOMContentLoaded', () => {
-            typeCode();
-            initCodeParallax();
-            
-            document.querySelectorAll('.social-link').forEach(link => {
-                link.addEventListener('mouseenter', () => {
-                    document.querySelector('.blur-overlay').style.opacity = '0.9';
-                });
-                
-                link.addEventListener('mouseleave', () => {
-                    document.querySelector('.blur-overlay').style.opacity = '0.8';
-                });
             });
         });
-
-        function randomCodeFlicker() {
-            const lines = document.querySelectorAll('.code-line');
-            if (lines.length > 0) {
-                const randomLine = lines[Math.floor(Math.random() * lines.length)];
-                randomLine.style.opacity = '0.8';
-                randomLine.style.textShadow = '0 0 15px currentColor';
-                setTimeout(() => {
-                    randomLine.style.opacity = '1';
-                    randomLine.style.textShadow = '0 0 8px currentColor';
-                }, 200);
-            }
-            setTimeout(randomCodeFlicker, Math.random() * 1500 + 500);
-        }
-
-        setTimeout(randomCodeFlicker, 2000);
     </script>
 </body>
 </html>
